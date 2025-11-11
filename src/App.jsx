@@ -3,22 +3,40 @@ import Layout from "./Layout";
 import Home from "./Home";
 import Movies from "./Movies";
 import Series from "./Series";
-import Fetch from "./Fetch";
+import { createContext, useEffect } from "react";
+import { FetchMovies, FetchSeries } from "./Fetch"
+import { useState } from "react";
 
 // BUILD THE CONTEXT TO PASS THE FETCHED DATA TO THE DIFFERENT ROUTES
 
+export const CatalogContext = createContext({
+    movies: {},
+    series: {}
+})
+
 export default function App() {
-    Fetch();
+    const [movies, setMovies] = useState({});
+    const [series, setSeries] = useState({});
+
+    useEffect(() => {
+        FetchMovies().then(setMovies);
+    }, []);
+
+    useEffect(() => {
+        FetchSeries().then(setSeries);
+    }, []);
 
     return (
         <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Layout />}>
-                    <Route index element={<Home />} />
-                    <Route path="movies" element={<Movies />} />
-                    <Route path="series" element={<Series />} />
-                </Route>
-            </Routes>
+            <CatalogContext value={{ movies, series }}>
+                <Routes>
+                    <Route path="/" element={<Layout />}>
+                        <Route index element={<Home />} />
+                        <Route path="movies" element={<Movies />} />
+                        <Route path="series" element={<Series />} />
+                    </Route>
+                </Routes>
+            </CatalogContext>
         </BrowserRouter>
     )
 }

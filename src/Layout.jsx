@@ -20,7 +20,7 @@ const Layout = () => {
     return (
         <>
             <Navbar />
-            <main>
+            <main className="w-full h-full">
                 <Outlet />
             </main>
         </>
