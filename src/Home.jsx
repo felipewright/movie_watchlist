@@ -8,15 +8,14 @@ import { ImageSlider } from "./ImageSlider";
 
 export default function Home() {
     const { movies, series } = useContext(CatalogContext);
-    console.log("movies", movies);
 
     return movies.length > 1 && (
         <>
-            {/* <Carousel className="absolute"
+            <Carousel 
                 arr={movies.slice(0, 5)}
-            /> */}
-            <ImageSlider
-                arr={movies.slice(0, 7)}
+            />
+            <ImageSlider 
+                arr={movies.slice(0, 15)}
             />
         </> 
     )

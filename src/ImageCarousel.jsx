@@ -22,7 +22,7 @@ export function Carousel({ arr }) {
     };
 
     return (
-        <div className="relative w-full h-4/6 overflow-hidden">
+        <div className="relative w-full h-[75vh] overflow-hidden mb-5">
             <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center space-y-4 bg-black/40 p-6 pointer-events-none">
                 <h2 className="text-sm md:text-base font-light tracking-wide text-gray-200">
                     {parseInt(index) + 1} on trending today.
@@ -32,7 +32,7 @@ export function Carousel({ arr }) {
                 </h2>
                 <p className="max-w-2xl text-gray-300 text-sm md:text-base px-4 md:px-0">
                     {arr[index].overview.length > 250
-                        ? `${arr[index].overview.slice(0, 250)} ...` 
+                        ? `${arr[index].overview.slice(0, 250)} ...`
                         : arr[index].overview
                     }
                 </p>
@@ -45,16 +45,19 @@ export function Carousel({ arr }) {
                     </button>
                 </div>
             </div>
-            {arr.map((el,) => {
-                return (<img
+
+            {arr.map((el) => (
+                <img
                     key={el.title}
                     src={el.wideImage}
-                    className={el === arr[index]
-                        ? "absolute w-full h-full object-cover inset-0 opacity-100 transition-opacity duration-300 ease-in-out"
-                        : "absolute w-full h-full object-cover inset-0 opacity-0 transition-opacity duration-300 ease-in-out"
+                    className={
+                        el === arr[index]
+                            ? "absolute w-full h-full object-cover inset-0 opacity-100 transition-opacity duration-300 ease-in-out"
+                            : "absolute w-full h-full object-cover inset-0 opacity-0 transition-opacity duration-300 ease-in-out"
                     }
-                />)
-            })}
+                />
+            ))}
+
             <div className="absolute inset-0 flex justify-center items-end pb-4">
                 {arr.map((_, i) => (
                     <button
