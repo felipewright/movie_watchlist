@@ -1,5 +1,17 @@
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
+async function FetchGenresMovie() {
+    return fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`, { mode: "cors" })
+        .then(res => res.json())
+        .then(res => console.log("FetchGenresMovie says", res));
+}
+
+async function FetchGenresSeries() {
+    return fetch(`https://api.themoviedb.org/3/genre/tv/list?api_key=${API_KEY}`, { mode: "cors" })
+        .then(res => res.json())
+        .then(res => console.log("FetchGenresSeries says", res));
+}
+
 export async function FetchMovies() {
     return fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`, { mode: "cors" })
         .then(res => res.json())
@@ -19,6 +31,10 @@ export async function FetchMovies() {
 export async function FetchSeries() {
     return fetch(`https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}`, { mode: "cors" })
         .then(res => res.json())
+        // .then(res => {
+        //     console.log(res)
+        //     return res
+        // })
         .then(data => data.results.map(el => ({
             key: crypto.randomUUID(),
             id: el.id,

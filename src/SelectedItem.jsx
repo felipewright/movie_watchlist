@@ -10,42 +10,35 @@ export default function SelectedItem() {
     useEffect(() => {
         if (movies && series) {
             let match = movies.filter(el => Number(el.id) === Number(selectedId));
-            setSelectedEl(match);
+            setSelectedEl(match[0]);
         }
     }, [selectedId, movies, series])
 
+    console.log(selectedEl);
+
     return selectedEl && (
-        <>
-            <h1 className='text-9xl text-white'>The selected item is: {selectedEl.id} </h1>
-        </>
+        <div className="relative w-full h-[75vh] overflow-hidden mb-5">
+            <div className="absolute inset-0 z-10 flex flex-col justify-center items-start text-center space-y-4 bg-black/40 p-6">
+                <h2 className="text-3xl md:text-5xl font-semibold text-white max-w-3xl leading-tight px-3">
+                    {selectedEl.title}
+                </h2>
+                <div className="flex items-center gap-4 text-white px-4">
+                    <span>{selectedEl.date}</span>
+                    <span>{selectedEl.language}</span>
+                    <span className="px-2 py-1 rounded-lg border border-white/40 backdrop-blur-sm">
+                        {selectedEl.vote}
+                    </span>
+                </div>
+                <p className="max-w-2xl h-15 text-white text-sm md:text-base mx-4 md:px-0 text-left">
+                    {selectedEl.overview}
+                </p>
+            </div>
+            <img
+                key={selectedEl.title}
+                src={selectedEl.wideImage}
+                className="absolute w-full h-full object-cover inset-0 opacity-100 transition-opacity duration-300 ease-in-out"
+            />
+        </div>
     )
 }
 
-// return (
-//         <div className="relative w-full h-[75vh] overflow-hidden mb-5">
-//             <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center space-y-4 bg-black/40 p-6">
-//                 <h2 className="text-sm md:text-base font-light tracking-wide text-gray-200">
-//                     {parseInt(index) + 1} on trending today.
-//                 </h2>
-//                 <h2 className="text-3xl md:text-5xl font-semibold text-white max-w-3xl leading-tight">
-//                     {arr[index].title}
-//                 </h2>
-//                 <p className="max-w-2xl h-15 text-gray-300 text-sm md:text-base px-4 md:px-0">
-//                     {arr[index].overview.length > 250
-//                         ? `${arr[index].overview.slice(0, 250)} ...`
-//                         : arr[index].overview
-//                     }
-//                 </p>
-//                 <div className="flex space-x-4 pt-4">
-//                     <button className="px-6 py-2 bg-white text-black font-semibold rounded-lg shadow-md hover:bg-gray-200 transition hover:cursor-pointer">
-//                         WATCH
-//                     </button>
-//                     <Link to={`/selected/${arr[index].id}`}>
-//                         <button className="px-6 py-2 border border-white text-white font-semibold rounded-lg hover:bg-white/10 transition hover:cursor-pointer">
-//                             ABOUT FILM
-//                         </button>
-//                     </Link>
-//                 </div>
-//             </div>
-//         </div>
-//     )
