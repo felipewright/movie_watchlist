@@ -8,8 +8,6 @@ import { createContext, useEffect } from "react";
 import { FetchMovies, FetchSeries, FetchGenresMovies, FetchGenresSeries } from "./Fetch"
 import { useState } from "react";
 
-// BUILD THE CONTEXT TO PASS THE FETCHED DATA TO THE DIFFERENT ROUTES
-
 export const CatalogContext = createContext({
     movies: {},
     series: {}
@@ -28,9 +26,6 @@ export default function App() {
 
             if (!movieData || !genresData) return;
 
-            console.log("App.jsx: movieData", movieData);
-            console.log("App.jsx: genresData", genresData);
-
             const merged = movieData.map(movie => ({
                 ...movie,
                 genre: genresData.find(g => g.id === movie.genreId)?.genre
@@ -41,8 +36,6 @@ export default function App() {
 
         fetchAndMerge();
     }, []);
-
-    console.log("movies state is", movies);
 
     useEffect(() => {
         FetchSeries().then(setSeries);

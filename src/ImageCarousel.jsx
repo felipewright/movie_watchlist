@@ -66,7 +66,7 @@ export function Carousel({ arr }) {
                     <button
                         key={i}
                         onClick={() => handleClick(i)}
-                        className={`mx-2 transition w-4.5 h-4.5 rounded-full hover:cursor-pointer
+                        className={`mx-2 transition w-4.5 h-4.5 rounded-full hover:cursor-pointer z-50
                             ${i === index
                                 ? "border-3 border-gray-500 bg-transparent"
                                 : "bg-gray-500 opacity-50"
