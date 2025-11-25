@@ -8,7 +8,7 @@ export default function SelectedItem() {
     const [selectedEl, setSelectedEl] = useState(null);
 
     useEffect(() => {
-        if (movies && series) {
+        if (movies && series && selectedId) {
             let match = movies.filter(el => Number(el.id) === Number(selectedId));
             setSelectedEl(match[0]);
         }
@@ -25,6 +25,7 @@ export default function SelectedItem() {
                 <div className="flex items-center gap-4 text-white px-4">
                     <span>{selectedEl.date}</span>
                     <span>{selectedEl.language}</span>
+                    <span>{selectedEl.genre}</span>
                     <span className="px-2 py-1 rounded-lg border border-white/40 backdrop-blur-sm">
                         {selectedEl.vote}
                     </span>

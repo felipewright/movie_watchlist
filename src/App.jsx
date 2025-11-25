@@ -5,7 +5,7 @@ import Movies from "./Movies";
 import Series from "./Series";
 import SelectedItem from "./SelectedItem";
 import { createContext, useEffect } from "react";
-import { FetchMovies, FetchSeries } from "./Fetch"
+import { FetchMovies, FetchSeries, FetchGenresMovies, FetchGenresSeries } from "./Fetch"
 import { useState } from "react";
 
 // BUILD THE CONTEXT TO PASS THE FETCHED DATA TO THE DIFFERENT ROUTES
@@ -20,8 +20,29 @@ export default function App() {
     const [series, setSeries] = useState({});
 
     useEffect(() => {
-        FetchMovies().then(setMovies);
+        async function fetchAndMerge() {
+            const [movieData, genresData] = await Promise.all([
+                FetchMovies(),
+                FetchGenresMovies()
+            ]);
+
+            if (!movieData || !genresData) return;
+
+            console.log("App.jsx: movieData", movieData);
+            console.log("App.jsx: genresData", genresData);
+
+            const merged = movieData.map(movie => ({
+                ...movie,
+                genre: genresData.find(g => g.id === movie.genreId)?.genre
+            }));
+
+            setMovies(merged);
+        }
+
+        fetchAndMerge();
     }, []);
+
+    console.log("movies state is", movies);
 
     useEffect(() => {
         FetchSeries().then(setSeries);

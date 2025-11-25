@@ -1,16 +1,28 @@
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 
-async function FetchGenresMovie() {
+export async function FetchGenresMovies() {
     return fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`, { mode: "cors" })
         .then(res => res.json())
-        .then(res => console.log("FetchGenresMovie says", res));
+        .then(data => data.genres.map(el => ({
+            key: crypto.randomUUID(),
+            id: el.id,
+            genre: el.name
+        })
+        ));
 }
 
-async function FetchGenresSeries() {
+export async function FetchGenresSeries() {
     return fetch(`https://api.themoviedb.org/3/genre/tv/list?api_key=${API_KEY}`, { mode: "cors" })
         .then(res => res.json())
-        .then(res => console.log("FetchGenresSeries says", res));
+        .then(data => data.genres.map(el => ({
+            key: crypto.randomUUID(),
+            id: el.id,
+            genre: el.name
+        })
+        ));
 }
+
+FetchGenresSeries();
 
 export async function FetchMovies() {
     return fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`, { mode: "cors" })
@@ -24,17 +36,14 @@ export async function FetchMovies() {
             overview: el.overview,
             date: el.release_date,
             language: el.original_language,
-            vote: Number(el.vote_average).toFixed(1)
+            vote: Number(el.vote_average).toFixed(1),
+            genreId: el.genre_ids[0]
         })));
 }
 
 export async function FetchSeries() {
     return fetch(`https://api.themoviedb.org/3/tv/top_rated?api_key=${API_KEY}`, { mode: "cors" })
         .then(res => res.json())
-        // .then(res => {
-        //     console.log(res)
-        //     return res
-        // })
         .then(data => data.results.map(el => ({
             key: crypto.randomUUID(),
             id: el.id,
@@ -44,7 +53,8 @@ export async function FetchSeries() {
             overview: el.overview,
             date: el.first_air_date,
             language: el.original_language,
-            vote: Number(el.vote_average).toFixed(1)
+            vote: Number(el.vote_average).toFixed(1),
+            genreId: el.genre_ids[0]
         })));
 }
 
