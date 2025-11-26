@@ -18,7 +18,7 @@ export default function App() {
     const [series, setSeries] = useState({});
 
     useEffect(() => {
-        async function fetchAndMerge() {
+        async function fetchAndMergeMovies() {
             const [movieData, genresData] = await Promise.all([
                 FetchMovies(),
                 FetchGenresMovies()
@@ -34,12 +34,27 @@ export default function App() {
             setMovies(merged);
         }
 
-        fetchAndMerge();
+        async function fetchAndMergeSeries() {
+            const [seriesData, genresData] = await Promise.all([
+                FetchSeries(),
+                FetchGenresSeries()
+            ]);
+
+            if (!seriesData || !genresData) return;
+
+            const merged = seriesData.map(series => ({
+                ...series,
+                genre: genresData.find(g => g.id === series.genreId)?.genre
+            }));
+
+            setSeries(merged);
+        }
+
+        fetchAndMergeMovies();
+        fetchAndMergeSeries();
     }, []);
 
-    useEffect(() => {
-        FetchSeries().then(setSeries);
-    }, []);
+    console.log("App: series", series);
 
     return (
         <BrowserRouter>

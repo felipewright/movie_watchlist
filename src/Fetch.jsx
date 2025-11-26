@@ -22,7 +22,7 @@ export async function FetchGenresSeries() {
         ));
 }
 
-FetchGenresSeries();
+// FetchGenresSeries();
 
 export async function FetchMovies() {
     return fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}`, { mode: "cors" })
