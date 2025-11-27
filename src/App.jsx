@@ -54,7 +54,6 @@ export default function App() {
         fetchAndMergeSeries();
     }, []);
 
-    console.log("App: series", series);
 
     return (
         <BrowserRouter>

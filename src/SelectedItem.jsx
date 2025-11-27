@@ -10,8 +10,10 @@ export default function SelectedItem() {
     useEffect(() => {
         if (movies && series && selectedId) {
             let match = movies.filter(el => Number(el.id) === Number(selectedId));
-            // YOU NEED TO FIND A MATCH FOR THE SERIES TOO
-            setSelectedEl(match[0]);
+            if(!match) match = series.filter(el => Number(el.id) === Number(selectedId));
+
+            console.log("selected item match:", match);
+            setSelectedEl(match);
         }
     }, [selectedId, movies, series])
 
