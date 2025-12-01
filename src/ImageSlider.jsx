@@ -11,21 +11,22 @@ export function ImageSlider({ moviesArr, seriesArr }) {
 
     useEffect(() => {
         setSliderItems(activeDataset);
-    }, [isMovieSelected])
+        clearInterval(rotationIntervalRef.current);
 
-    useEffect(() => {
         rotationIntervalRef.current = setInterval(() => {
             setIsSliding(true);
 
-            setTimeout(() => {
+            const timeoutId = setTimeout(() => {
                 setSliderItems(prev => {
                     const copy = [...prev];
                     copy.push(copy.shift());
                     return copy;
                 });
-
+                
                 setIsSliding(false);
             }, 1000);
+
+            return () => clearTimeout(timeoutId);
         }, 4000);
 
         return () => clearInterval(rotationIntervalRef.current);

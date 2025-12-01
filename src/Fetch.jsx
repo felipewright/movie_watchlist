@@ -58,3 +58,12 @@ export async function FetchSeries() {
         })));
 }
 
+// THIS FUNCTION IS FOR SELECTING A SPECIFIC GENRE USING AN ID FROM FetchGenresMovies/Series
+
+export async function FetchSelectedGenre() {
+    return fetch(`https://api.themoviedb.org/3/discover/tv?api_key=${API_KEY}&with_genres=${genreId}`, { mode: "cors" })
+        .then(res => res.json())
+        .then(data => console.log(data));
+}
+
+

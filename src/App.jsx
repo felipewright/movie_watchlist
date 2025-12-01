@@ -16,6 +16,8 @@ export const CatalogContext = createContext({
 export default function App() {
     const [movies, setMovies] = useState({});
     const [series, setSeries] = useState({});
+    const [genresMovies, setGenresMovies] = useState({});
+    const [genresSeries, setGenresSeries] = useState({});
 
     useEffect(() => {
         async function fetchAndMergeMovies() {
@@ -32,6 +34,7 @@ export default function App() {
             }));
 
             setMovies(merged);
+            setGenresMovies(genresData);
         }
 
         async function fetchAndMergeSeries() {
@@ -48,6 +51,7 @@ export default function App() {
             }));
 
             setSeries(merged);
+            setGenresSeries(genresData);
         }
 
         fetchAndMergeMovies();
@@ -57,7 +61,7 @@ export default function App() {
 
     return (
         <BrowserRouter>
-            <CatalogContext value={{ movies, series }}>
+            <CatalogContext value={{ movies, series, genresMovies, genresSeries }}>
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Home />} />

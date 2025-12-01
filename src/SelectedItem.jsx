@@ -9,15 +9,19 @@ export default function SelectedItem() {
 
     useEffect(() => {
         if (movies && series && selectedId) {
-            let match = movies.filter(el => Number(el.id) === Number(selectedId));
-            if(!match) match = series.filter(el => Number(el.id) === Number(selectedId));
+            let match;
+            const Moviesmatch = movies.filter(el => Number(el.id) === Number(selectedId));
+            const SeriesMatch = series.filter(el => Number(el.id) === Number(selectedId));
 
-            console.log("selected item match:", match);
-            setSelectedEl(match);
+            Moviesmatch.length > SeriesMatch.length
+                ? match = Moviesmatch
+                : match = SeriesMatch;
+
+            setSelectedEl(match[0]);
         }
-    }, [selectedId, movies, series])
+    }, [selectedId])
 
-    console.log(selectedEl);
+    if (selectedEl) console.log(selectedEl);
 
     return selectedEl && (
         <div className="relative w-full h-[75vh] overflow-hidden mb-5">
