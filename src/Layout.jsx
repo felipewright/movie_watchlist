@@ -8,8 +8,8 @@ const Navbar = () => {
             <nav className="absolute left-1/2 -translate-x-1/2">
                 <ul className="flex gap-6">
                     <li><NavLink to="/">Home</NavLink></li>
-                    <li><NavLink to="/movies">Movies</NavLink></li>
-                    <li><NavLink to="/series">Series</NavLink></li>
+                    <li><NavLink to="/movies/popular">Movies</NavLink></li>
+                    <li><NavLink to="/series/popular">Series</NavLink></li>
                 </ul>
             </nav>
         </header >

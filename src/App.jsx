@@ -58,15 +58,14 @@ export default function App() {
         fetchAndMergeSeries();
     }, []);
 
-
     return (
         <BrowserRouter>
             <CatalogContext value={{ movies, series, genresMovies, genresSeries }}>
                 <Routes>
                     <Route path="/" element={<Layout />}>
                         <Route index element={<Home />} />
-                        <Route path="movies" element={<Movies />} />
-                        <Route path="series" element={<Series />} />
+                        <Route path="movies/:selectedId" element={<Movies />} />
+                        <Route path="series/:selectedId" element={<Series />} />
                         <Route path="selected/:selectedId" element={<SelectedItem />} />
                     </Route>
                 </Routes>
