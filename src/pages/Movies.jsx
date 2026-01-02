@@ -1,15 +1,6 @@
 import { useContext, useState, useEffect, useRef } from "react";
 import { Link, useParams } from "react-router";
-import { CatalogContext } from "./App";
-
-// SELECT GENRES BUTTONS THAT CHANGE THE DYNAMIC ROUTE
-// USEPARAMS TO TAKE THE SELECTED GENRE ID (SET BY THE BUTTONS)
-// A USEEFFECT WITH THIS PARAM AS DEPENDANCY 
-// (MAYBE COMBINED WITH A STATE, BCS IT CAN BE UPDATED MANY TIMES)
-
-// INSIDE THE EFFECT YOU IMPORT AND RUN A FETCH WITH THE SELECTED ID
-// YOU MAKE AN UPDATE ON THE MOVIES STATE WITH THIS DATA
-// PAGE RE RENDERS
+import { CatalogContext } from "../App";
 
 export default function Movies() {
     const { movies: popularMovies } = useContext(CatalogContext);
@@ -20,8 +11,11 @@ export default function Movies() {
         console.log("selectedId", selectedId);
 
         if (String(selectedId) === "popular") {
-            setSelectedMovies(popularMovies)
+            setSelectedMovies(popularMovies);
+        } else {
+            setSelectedMovies(popularMovies);
         }
+
     }, [selectedId])
 
     return (

@@ -1,8 +1,8 @@
-import { useContext, useState, useEffect, useRef } from "react";
-import { CatalogContext } from "./App";
-import { Carousel } from "./ImageCarousel";
-import { ImageSlider } from "./ImageSlider";
-import { HomeGenres } from "./HomeGenres";
+import { useContext } from "react";
+import { CatalogContext } from "../App";
+import { Carousel } from "../components/ImageCarousel";
+import { ImageSlider } from "../components/ImageSlider";
+import { HomeGenres } from "../components/HomeGenres";
 
 export default function Home() {
     const { movies, series, genresMovies, genresSeries } = useContext(CatalogContext);

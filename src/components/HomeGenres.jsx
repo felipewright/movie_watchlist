@@ -24,7 +24,6 @@ export function HomeGenres({ genresMovies }) {
         <div className="flex flex-wrap gap-3">
             {topGenresMovies.map(el => (
                 <Link key={el.key} to={`/movies/${el.genre}`}>
-                    {/* <Link to={`/selected/${arr[index].id}`}></Link> */}
                     <button
                         className="px-4 py-2 rounded-lg bg-gray-800 text-white hover:bg-gray-700 transition"
                     >

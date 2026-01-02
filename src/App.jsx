@@ -1,76 +1,36 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import Layout from "./Layout";
-import Home from "./Home";
-import Movies from "./Movies";
-import Series from "./Series";
-import SelectedItem from "./SelectedItem";
-import { createContext, useEffect } from "react";
-import { FetchMovies, FetchSeries, FetchGenresMovies, FetchGenresSeries } from "./Fetch"
-import { useState } from "react";
-
-export const CatalogContext = createContext({
-    movies: {},
-    series: {}
-})
+import Home from "./pages/Home";
+import Movies from "./pages/Movies";
+import Series from "./pages/Series";
+import SelectedItem from "./pages/SelectedItem";
+import CatalogContext from "./context/CatalogContext";
+export { CatalogContext };
+import { useCatalog } from "./hooks/useCatalog";
 
 export default function App() {
-    const [movies, setMovies] = useState({});
-    const [series, setSeries] = useState({});
-    const [genresMovies, setGenresMovies] = useState({});
-    const [genresSeries, setGenresSeries] = useState({});
+  const catalog = useCatalog();
 
-    useEffect(() => {
-        async function fetchAndMergeMovies() {
-            const [movieData, genresData] = await Promise.all([
-                FetchMovies(),
-                FetchGenresMovies()
-            ]);
+  if (catalog.loading) {
+    return <p className="text-white p-4">Loading...</p>;
+  }
 
-            if (!movieData || !genresData) return;
+  if (catalog.error) {
+    return <p className="text-red-500 p-4">Something went wrong.</p>;
+  }
 
-            const merged = movieData.map(movie => ({
-                ...movie,
-                genre: genresData.find(g => g.id === movie.genreId)?.genre
-            }));
-
-            setMovies(merged);
-            setGenresMovies(genresData);
-        }
-
-        async function fetchAndMergeSeries() {
-            const [seriesData, genresData] = await Promise.all([
-                FetchSeries(),
-                FetchGenresSeries()
-            ]);
-
-            if (!seriesData || !genresData) return;
-
-            const merged = seriesData.map(series => ({
-                ...series,
-                genre: genresData.find(g => g.id === series.genreId)?.genre
-            }));
-
-            setSeries(merged);
-            setGenresSeries(genresData);
-        }
-
-        fetchAndMergeMovies();
-        fetchAndMergeSeries();
-    }, []);
-
-    return (
-        <BrowserRouter>
-            <CatalogContext value={{ movies, series, genresMovies, genresSeries }}>
-                <Routes>
-                    <Route path="/" element={<Layout />}>
-                        <Route index element={<Home />} />
-                        <Route path="movies/:selectedId" element={<Movies />} />
-                        <Route path="series/:selectedId" element={<Series />} />
-                        <Route path="selected/:selectedId" element={<SelectedItem />} />
-                    </Route>
-                </Routes>
-            </CatalogContext>
-        </BrowserRouter>
-    )
+  return (
+    <BrowserRouter>
+      <CatalogContext.Provider value={catalog}>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="movies/:selectedId" element={<Movies />} />
+            <Route path="series/:selectedId" element={<Series />} />
+            <Route path="selected/:selectedId" element={<SelectedItem />} />
+          </Route>
+        </Routes>
+      </CatalogContext.Provider>
+    </BrowserRouter>
+  );
 }
-

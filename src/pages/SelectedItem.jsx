@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-import { CatalogContext } from "./App";
+import { CatalogContext } from "../App";
 
 export default function SelectedItem() {
     const { movies, series } = useContext(CatalogContext);

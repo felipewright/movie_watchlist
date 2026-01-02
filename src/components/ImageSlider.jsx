@@ -22,7 +22,7 @@ export function ImageSlider({ moviesArr, seriesArr }) {
                     copy.push(copy.shift());
                     return copy;
                 });
-                
+
                 setIsSliding(false);
             }, 1000);
 

@@ -1,5 +1,4 @@
-import { Outlet } from "react-router";
-import { NavLink } from "react-router";
+import { Outlet, NavLink } from "react-router";
 
 const Navbar = () => {
     return (
