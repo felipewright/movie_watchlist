@@ -9,8 +9,6 @@ async function request(url) {
 
 export async function getMovieGenres() {
   const data = await request(`${BASE}/genre/movie/list?api_key=${API_KEY}`);
-  // Remove this log after use:
-  console.log("tmbd.js, request(url) says data is:", data);
   return data.genres;
 }
 

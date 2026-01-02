@@ -3,6 +3,7 @@ import { CatalogContext } from "../App";
 import { Carousel } from "../components/ImageCarousel";
 import { ImageSlider } from "../components/ImageSlider";
 import { HomeGenres } from "../components/HomeGenres";
+import { ImageShowcase } from "../components/ImageShowcase";
 
 export default function Home() {
     const { movies, series, genresMovies, genresSeries } = useContext(CatalogContext);
@@ -18,6 +19,9 @@ export default function Home() {
             />
             <HomeGenres
                 genresMovies={genresMovies}
+            />
+            <ImageShowcase
+                arr={movies.slice(0, 15)}
             />
         </div>
     )
